@@ -54,6 +54,33 @@ The project is implemented in **Jupyter Notebook** using **VS Code**.
 
 ---
 
+### 4. Transform Full Data
+- Apply transformations on the full dataset (cleaning, enrichment, structural, categorization, filtering).
+- In Section 4 of the notebook:
+  1. Remove duplicates.
+  2. Handle any missing values.
+  3. Ensure `order_date` is datetime and extract `order_year`, `order_month`, `order_day`.
+  4. Add enrichment columns, e.g., `avg_price_per_item`.
+  5. Categorize `total_price` into `price_category` (Low/Medium/High).
+  6. Drop irrelevant columns if present.
+  7. Save result to `transformed_full.csv`.
+
+---
+
+### 5. Transform Incremental Data
+- Apply the same transformation logic on the incremental subset.
+- In Section 5 of the notebook:
+  1. Load incremental extraction results.
+  2. Remove duplicates.
+  3. Handle missing values.
+  4. Ensure datetime and extract parts.
+  5. Add enrichment columns (`avg_price_per_item`).
+  6. Categorize `total_price` into `price_category`.
+  7. Drop irrelevant columns if present.
+  8. Save result to `transformed_incremental.csv`.
+
+---
+
 ## Data Source
 The dataset used in this project was synthetically generated for demonstration purposes.
 
@@ -62,6 +89,7 @@ The dataset used in this project was synthetically generated for demonstration p
 ## Tools Used
 - Python
 - Pandas
+- Numpy
 - Jupyter Notebook
 - VS Code
 
@@ -72,6 +100,16 @@ The dataset used in this project was synthetically generated for demonstration p
 2. Add all files.
 3. Commit after each completed section.
 4. Push the final project to GitHub.
+
+---
+
+## Transformation Details (for reference)
+
+- **Cleaning**: Drop duplicate rows; handle missing values (fill or drop as needed).
+- **Structural**: Parse and validate `order_date`; extract year/month/day parts.
+- **Enrichment**: Compute `avg_price_per_item = total_price / quantity`.
+- **Categorization**: Bin `total_price` into `price_category` ("Low", "Medium", "High").
+- **Filtering**: Drop any irrelevant columns (e.g., an `id` column if present).
 
 ---
 
