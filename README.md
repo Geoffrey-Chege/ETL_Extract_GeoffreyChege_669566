@@ -116,3 +116,53 @@ The dataset used in this project was synthetically generated for demonstration p
 ## License
 This project is licensed under the MIT License.  
 See the [LICENSE](LICENSE) file for details.
+
+## Lab 5 – Load
+
+In this lab, we load the transformed datasets into both **Parquet files** and **SQLite** databases.
+
+**Outputs (in `loaded_data/`):**
+- `full_data.parquet`
+- `incremental_data.parquet`
+- `full_data.db`          (SQLite table `full_data`)
+- `incremental_data.db`   (SQLite table `incremental_data`)
+
+**Sample Load Code (SQLite):**
+
+```python
+import pandas as pd, sqlite3
+
+# Full data load
+df = pd.read_csv('transformed_full.csv', parse_dates=['order_date'])
+conn = sqlite3.connect('loaded_data/full_data.db')
+df.to_sql('full_data', conn, if_exists='replace', index=False)
+conn.close()
+
+# Incremental data load
+df2 = pd.read_csv('transformed_incremental.csv', parse_dates=['order_date'])
+conn = sqlite3.connect('loaded_data/incremental_data.db')
+df2.to_sql('incremental_data', conn, if_exists='replace', index=False)
+conn.close()
+
+# SQLite
+conn = sqlite3.connect('loaded_data/full_data.db')
+pd.read_sql("SELECT COUNT(*) FROM full_data;", conn)
+conn.close()
+
+```
+
+
+---
+
+## 6. Git Workflow Reminders
+
+```bash
+# stage new files
+git add etl_load.ipynb .gitignore README.md loaded_data/
+
+# commit
+git commit -m "Lab 5: Load transformed data into SQLite, update .gitignore and README"
+
+# push
+git push origin main
+```
